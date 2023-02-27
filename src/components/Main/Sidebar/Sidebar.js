@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { key } from "../../../constants"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDollyBox } from '@fortawesome/free-solid-svg-icons'
+import { faDollyBox, faMagnifyingGlassChart } from '@fortawesome/free-solid-svg-icons'
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -12,16 +12,15 @@ const Sidebar = () => {
     const trees = window.$('[data-widget="treeview"]');
     trees.Treeview('init');
   }, [])
-  
+
 
   const menu_stock_render = () => {
     return (
       <li className="nav-item has-treeview">
-        <a href="#"
-          className={`nav-link ${location.pathname.includes("PurchaseOrder") ? "active" : ""
+        <a href
+          className={`nav-link ${location.pathname.includes("Stock/") ? "active" : ""
             }`}
         >
-          {/* <i className="nav-icon fas fa-shopping-cart" /> */}
           <FontAwesomeIcon className="nav-icon" icon={faDollyBox} />
           <p>
             สต๊อก
@@ -32,9 +31,10 @@ const Sidebar = () => {
         <ul className="nav nav-treeview">
           <li className="nav-item">
             <a
-              onClick={() => navigate("/stock/receive")}
+              href
+              onClick={() => navigate("/Stock/Receive")}
               className={
-                location.pathname === "/stock/receive"
+                location.pathname === "/Stock/Receive"
                   ? "nav-link active"
                   : "nav-link"
               }
@@ -45,9 +45,10 @@ const Sidebar = () => {
           </li>
           <li className="nav-item">
             <a
-              onClick={() => navigate("/stock/issues")}
+              href
+              onClick={() => navigate("/Stock/Issues")}
               className={
-                location.pathname === "/stock/issues"
+                location.pathname === "/Stock/Issues"
                   ? "nav-link active"
                   : "nav-link"
               }
@@ -61,32 +62,34 @@ const Sidebar = () => {
     );
   };
 
-  const menu_jobOrder_render = () => {
+  const menu_report_render = () => {
     return (
       <li className="nav-item has-treeview">
         <a
-          className={`nav-link ${location.pathname.includes("JobOrder") ? "active" : ""
+          className={`nav-link ${location.pathname.includes("Report/") ? "active" : ""
             }`}
+          href
         >
-          <i className="nav-icon fas fa-industry" />
+          <FontAwesomeIcon className="nav-icon" icon={faMagnifyingGlassChart} />
 
           <p>
-            คำสั่งงาน
+            รายงาน
             <i className="right fas fa-angle-left" />
           </p>
         </a>
         <ul className="nav nav-treeview">
           <li className="nav-item">
             <a
-              // onClick={() => navigate("/JobOrder/jobCards")}
+              href
+              onClick={() => navigate("/Report/Stock")}
               className={
-                location.pathname.includes("JobCards")
+                location.pathname === "/Report/Stock"
                   ? "nav-link active"
                   : "nav-link"
               }
             >
               <i className="far fa-circle nav-icon" />
-              <p>ปริ้นใบสั่งงาน</p>
+              <p>สต๊อก</p>
             </a>
           </li>
         </ul>
@@ -100,8 +103,8 @@ const Sidebar = () => {
       return (
         <li className="nav-item has-treeview">
           <a
-
-            className={`nav-link ${location.pathname.includes("Master") ? "active" : ""
+            href
+            className={`nav-link ${location.pathname.includes("Master/") ? "active" : ""
               }`}
           >
             <i className="nav-icon fas fa-tasks" />
@@ -114,6 +117,7 @@ const Sidebar = () => {
           <ul className="nav nav-treeview">
             <li className="nav-item">
               <a
+                href
                 onClick={() => navigate("/Master/Users")}
                 className={
                   location.pathname === "/Master/Users"
@@ -122,22 +126,51 @@ const Sidebar = () => {
                 }
               >
                 <i className="far fa-circle nav-icon" />
-                <p>จัดการผู้ใช้งาน</p>
+                <p>ผู้ใช้งาน</p>
               </a>
             </li>
-            {/* <li className="nav-item">
+            <li className="nav-item">
               <a
-                onClick={() => navigate("/Master/Customer")}
+                href
+                onClick={() => navigate("/Master/Products")}
                 className={
-                  location.pathname === "/Master/Customer"
+                  location.pathname === "/Master/Products"
                     ? "nav-link active"
                     : "nav-link"
                 }
               >
                 <i className="far fa-circle nav-icon" />
-                <p>จัดการลูกค้า</p>
+                <p>สินค้า</p>
               </a>
-            </li> */}
+            </li>
+            <li className="nav-item">
+              <a
+                href
+                onClick={() => navigate("/Master/Area")}
+                className={
+                  location.pathname === "/Master/Area"
+                    ? "nav-link active"
+                    : "nav-link"
+                }
+              >
+                <i className="far fa-circle nav-icon" />
+                <p>พื้นที่</p>
+              </a>
+            </li>
+            <li className="nav-item">
+              <a
+                href
+                onClick={() => navigate("/Master/Icons")}
+                className={
+                  location.pathname === "/Master/Icons"
+                    ? "nav-link active"
+                    : "nav-link"
+                }
+              >
+                <i className="far fa-circle nav-icon" />
+                <p>ไอค่อน</p>
+              </a>
+            </li>
           </ul>
         </li>
 
@@ -146,7 +179,7 @@ const Sidebar = () => {
   };
 
   return (
-    <aside className="main-sidebar sidebar-dark elevation-4 bg-main">
+    <aside className="main-sidebar bg-main sidebar-dark-warning elevation-4 ">
       <a
         href="/home"
         target={'_blank'}
@@ -196,7 +229,7 @@ const Sidebar = () => {
               <nav className="mt-2">
                 <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="true">
                   {menu_stock_render()}
-                  {/* {menu_jobOrder_render()} */}
+                  {menu_report_render()}
                   {menu_master_render()}
                 </ul>
 

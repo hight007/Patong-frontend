@@ -38,6 +38,7 @@ export default function Login(props) {
       localStorage.setItem(key.user_id, response.data.user_id)
       localStorage.setItem(key.user_level, response.data.user_level)
       localStorage.setItem(key.token, response.data.token)
+      localStorage.setItem(key.secretKey , response.data.secret_key)
       localStorage.setItem(
         key.loginTime,
         moment().format("DD-MMM-yyyy HH:mm:ss")

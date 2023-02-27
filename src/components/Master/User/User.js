@@ -8,6 +8,8 @@ import { apiName, key, OK } from "../../../constants";
 import MaterialReactTable from 'material-react-table';
 import moment from "moment";
 import _ from "lodash";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import * as iconsModule from '@fortawesome/free-solid-svg-icons'
 
 export default function User() {
 
@@ -23,6 +25,19 @@ export default function User() {
 
   const columns = [
     {
+      header: 'จัดการ',
+      accessorKey: 'user_id',
+      Cell: ({ cell, row }) => (
+        row.original.user_level  != 'admin' ? <button className="btn btn-danger" onClick={(e) => {
+          e.preventDefault()
+          doRemoveUser(cell.getValue(), row.original.username)
+        } 
+        }>
+          <FontAwesomeIcon icon={iconsModule.faTrashAlt} />
+        </button> : <></>
+      )
+    },
+    {
       header: 'ชื่อผู้ใช้งาน',
       accessorKey: 'username', //simple accessorKey pointing to flat data
     },
@@ -30,7 +45,7 @@ export default function User() {
       header: 'ระดับผู้ใช้งาน',
       accessorKey: 'user_level', //simple accessorKey pointing to flat data
       Cell: ({ cell, row }) => <><select
-        disabled={row.original.username == 'admin' ? true : false}
+        disabled={row.original.user_level == 'admin' ? true : false}
         class="form-control"
         value={cell.getValue()}
         onChange={(e) => {
@@ -119,7 +134,7 @@ export default function User() {
                     src="/img/Patong_bg.jpg"
                     alt="spectrumPro Logo"
 
-                    style={{ opacity: "1", width: "15%", borderRadius : '50%', padding : 20 , backgroundColor : 'black'}}
+                    style={{ opacity: "1", width: "15%", borderRadius: '50%', padding: 5, backgroundColor: 'black' }}
                   />
                   <hr />
                 </div>
@@ -176,7 +191,7 @@ export default function User() {
         }
         try {
           setisLoad(true)
-          const result = await httpClient.post(apiName.user.users, { username, password, user_level, createdBy: localStorage.getItem(key.user_id) ?? 1 })
+          const result = await httpClient.post(apiName.users.user, { username, password, user_level, createdBy: localStorage.getItem(key.user_id) ?? 1 })
           setisLoad(false)
           if (result.data.api_result == OK) {
             doGetUsers()
@@ -204,7 +219,7 @@ export default function User() {
   const doGetUsers = async () => {
     try {
       setisLoad(true)
-      const response = await httpClient.get(apiName.user.users)
+      const response = await httpClient.get(apiName.users.user)
       if (response.data.api_result === OK) {
         setusers(response.data.result)
       }
@@ -249,7 +264,7 @@ export default function User() {
       if (result.isConfirmed) {
         try {
           setisLoad(true)
-          const result = await httpClient.patch(apiName.user.users, { user_id, username, user_level: new_user_level })
+          const result = await httpClient.patch(apiName.users.user, { user_id, username, user_level: new_user_level })
           setisLoad(false)
           if (result.data.api_result === OK) {
             doGetUsers()
@@ -274,6 +289,45 @@ export default function User() {
     })
   }
 
+  const doRemoveUser = (user_id, username) => {
+    Swal.fire({
+      title: 'โปรดยืนยัน',
+      text: `ต้องการลบผู้ใช้งาน ${username}?`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'ตกลง',
+      cancelButtonText: 'ยกเลิก'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          setisLoad(true)
+          const result = await httpClient.delete(apiName.users.user, { data: { user_id } })
+          setisLoad(false)
+          if (result.data.api_result === OK) {
+            doGetUsers()
+            Swal.fire({
+              icon: 'success',
+              title: 'สำเร็จ',
+              text: `ลบผู้ใช้งาน ${username} สำเร็จ`
+            }).then(() => doGetUsers());
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'ล้มเหลว',
+              text: `ลบผู้ใช้งาน ${username} ล้มเหลว`
+            })
+          }
+        } catch (error) {
+          console.log(error);
+          setisLoad(false)
+        }
+
+      }
+    })
+  }
+
   return (
     <div className="content-wrapper resizeable bg-main2">
       <ContentHeader header="จัดการผู้ใช้งาน" />
@@ -286,7 +340,7 @@ export default function User() {
               <div className="card card-dark">
                 <div className="card-header ">
                   <button className="btn btn-dark" onClick={() => { openModal() }}>
-                    <i className="fas fa-user-plus" style={{ marginRight: 5 }} />
+                    <FontAwesomeIcon style={{ marginRight: 5 }} icon={iconsModule.faUserPlus} />
                     เพื่มผู้ใช้งานใหม่
                   </button>
                 </div>

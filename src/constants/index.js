@@ -27,12 +27,21 @@ export const apiUrl = "http://localhost:2008/api/patong/";
 // export const apiUrl = "https://asia-east1-micronmax.cloudfunctions.net/micronmaxbackend/api/MicronMax/";
 export const apiName = {
   authen: {
-    login: "authen/login/",
+    login: "authen/login",
+    crypto : "authen/crypto",
+    image: "authen/image",
   },
-  user: {
-    users: "user/users/",
+  users: {
+    user: "users/user",
   },
-
+  areas: {
+    area: "areas/area",
+  },
+  products : {
+    product : "products/product",
+    image : "products/image",
+    sugressionProductType: "products/sugressionProductType",
+  },
 
 };
 
@@ -43,4 +52,5 @@ export const key = {
   token: "token",
   isLogined: "isLogined",
   loginTime: "loginTime",
+  secretKey: "secretKey",
 };

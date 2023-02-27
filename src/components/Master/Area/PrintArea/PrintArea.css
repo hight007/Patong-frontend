@@ -1,0 +1,29 @@
+/* .page[data-size="A4"] {
+  width: 21cm;
+  height: 29.7cm; 
+}
+.page[data-size="A4"][data-layout="landscape"] {
+  width: 29.7cm;
+  height: 21cm;  
+}
+.page[data-size="A3"] {
+  width: 29.7cm;
+  height: 42cm;
+} */
+
+/* .page[data-size="custom1"] {
+  size: 10mm 500mm;
+} */
+
+/* @page {
+  size: 10mm 500mm;
+  margin: 0;
+} */
+
+@media print {
+  .page-break {
+    /* margin-top: 1rem; */
+    display: block;
+    page-break-before: always;
+  }
+}

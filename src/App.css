@@ -67,7 +67,7 @@
 }
 
 .bg-main {
-  background-color: black ;
+  background-color: black  !important ;
 }
 
 .bg-main2 {
