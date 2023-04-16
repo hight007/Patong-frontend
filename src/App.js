@@ -22,9 +22,11 @@ import Home from "./components/Main/Home";
 // Stock
 import Receive from './components/Stock/Receive';
 import Issues from './components/Stock/Issues';
+import Move from './components/Stock/Move';
 
 // Report
 import ReportStock from './components/Report/Stock';
+import StockQtyAlert from './components/Report/StockQtyAlert';
 
 // Master
 import Users from './components/Master/User';
@@ -61,9 +63,11 @@ function App() {
         {/* Stock */}
         <Route path="/Stock/Receive" element={<RequireAuth><Receive /></RequireAuth>} />
         <Route path="/Stock/Issues" element={<RequireAuth><Issues /></RequireAuth>} />
+        <Route path="/Stock/Move" element={<RequireAuth><Move /></RequireAuth>} />
 
         {/* Report */}
         <Route path="/Report/Stock" element={<RequireAuth><ReportStock /></RequireAuth>} />
+        <Route path="/Report/StockQtyAlert" element={<RequireAuth><StockQtyAlert /></RequireAuth>} />
 
 
         {/* master */}

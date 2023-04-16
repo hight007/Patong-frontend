@@ -427,8 +427,8 @@ export default function Product() {
                     </div>
                   </div>
                 </div>
-                <div>
-                  <img style={{ width: '100%', objectFit: 'cover' }} src={`${apiUrl}${apiName.authen.image}/productId=${productId}`} />
+                <div className="form-group col-sm-12" style={{ textAlign: 'center' }}>
+                  <img style={{ width: '20em', objectFit: 'cover' , }} src={`${apiUrl}${apiName.authen.image}/productId=${productId}`} />
                 </div>
 
 

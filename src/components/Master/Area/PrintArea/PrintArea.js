@@ -17,8 +17,8 @@ export default function PrintArea() {
   const [isLoad, setisLoad] = useState(false)
   const [listArea, setlistArea] = useState([])
   // const [dimensions, setDimensions] = React.useState({ width: 100, height: 30 });
-  const [printWidth, setprintWidth] = useState(100)
-  const [printHeight, setprintHeight] = useState(30)
+  const [printWidth, setprintWidth] = useState(60)
+  const [printHeight, setprintHeight] = useState(40)
 
   const params = useParams();
   const componentRef = useRef(null);

@@ -19,8 +19,8 @@ export default function PrintProduct() {
   const [dataToPrint, setdataToPrint] = useState([])
   const [quantity, setquantity] = useState(0)
   // const [dimensions, setDimensions] = React.useState({ width: 100, height: 30 });
-  const [printWidth, setprintWidth] = useState(100)
-  const [printHeight, setprintHeight] = useState(30)
+  const [printWidth, setprintWidth] = useState(60)
+  const [printHeight, setprintHeight] = useState(40)
 
   const params = useParams();
   const componentRef = useRef(null);
@@ -42,7 +42,7 @@ export default function PrintProduct() {
           spec: product.spec,
           detail: product.detail,
           description: product.description,
-          serialNumber: [product.productId, product.runningSN + index + 1, localStorage.getItem(key.user_id) ?? 1, product.default_total_quantity].join('|'),
+          serialNumber: [product.productId, product.runningSN + index + 1, product.default_total_quantity].join('|'),
           generateBy: localStorage.getItem(key.user_id) ?? 1
         })
       }
@@ -181,7 +181,7 @@ class ComponentToPrint extends Component {
     return (
       <div className="page col-sm-12">
         <div className="subpage">
-          <div className="row" >
+          <div className="row">
             {renderContent()}
           </div>
         </div>

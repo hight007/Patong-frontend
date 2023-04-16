@@ -1,12 +1,12 @@
 import React from "react";
-
+import package_ from '../../../../package.json';
 
 const Footer = () => {
   return (
     <footer className="main-footer bg-black">
       
       <div className="float-right d-none d-sm-inline-block">
-        <b >Version</b> 1.2.1
+        Develop by : Tarin Nuttee | <b >Version :</b> {package_.version}
       </div>
     </footer>
   );
