@@ -69,19 +69,6 @@ export default function Product() {
       )
     },
     {
-      header: 'สถานะ',
-      accessorKey: 'isActive',
-      Cell: ({ cell, row }) => (
-        <>
-          <div className="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-            <input onClick={() => doSetActive(row.original.productId, row.original.productName, !cell.getValue())} type="checkbox" className="custom-control-input" id={`customSwitch${row.original.productId}`} checked={cell.getValue()} />
-            <label class="custom-control-label" for={`customSwitch${row.original.productId}`}>{cell.getValue() ? 'เปิด' : 'ปิด'}</label>
-          </div>
-
-        </>
-      )
-    },
-    {
       header: 'ชนิดสินค้า',
       accessorKey: 'productType', //simple accessorKey pointing to flat data
     },
@@ -128,6 +115,19 @@ export default function Product() {
       header: 'วันที่แก้ไขล่าสุด',
       accessorKey: 'updatedAt', //simple accessorKey pointing to flat data
       Cell: ({ cell, row }) => moment(cell.getValue()).format("DD-MMM-yyyy HH:mm:ss")
+    },
+    {
+      header: 'สถานะ',
+      accessorKey: 'isActive',
+      Cell: ({ cell, row }) => (
+        <>
+          <div className="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+            <input onClick={() => doSetActive(row.original.productId, row.original.productName, !cell.getValue())} type="checkbox" className="custom-control-input" id={`customSwitch${row.original.productId}`} checked={cell.getValue()} />
+            <label class="custom-control-label" for={`customSwitch${row.original.productId}`}>{cell.getValue() ? 'เปิด' : 'ปิด'}</label>
+          </div>
+
+        </>
+      )
     },
 
   ]
@@ -315,7 +315,8 @@ export default function Product() {
     })
   }
   const setProductsByActive = (data, active) => {
-    setproducts(data.filter(item => item.isActive === active))
+    // setproducts(data.filter(item => item.isActive === active))
+    setproducts(data)
   }
 
   //sample Image
