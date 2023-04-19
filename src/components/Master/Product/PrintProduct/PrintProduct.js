@@ -160,7 +160,7 @@ class ComponentToPrint extends Component {
                   value={CryptoJS.AES.encrypt(item.serialNumber, secretKey).toString()}
                 />
                 <label style={{ fontSize: 0.1 }} className="col-md-12">
-                  {CryptoJS.AES.encrypt(item.serialNumber, secretKey).toString()}
+                  {/* {CryptoJS.AES.encrypt(item.serialNumber, secretKey).toString()} */}
                 </label>
               </div>
               <div className="col-md-10 row">
