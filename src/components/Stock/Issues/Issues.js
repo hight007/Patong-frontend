@@ -206,6 +206,7 @@ export default function Issues() {
         {
           header: 'ชื่อสต๊อก',
           accessorKey: 'stockName', //simple accessorKey pointing to flat data
+          Cell: ({ cell, row }) => <a href={`/Report/StockTracking/${row.original.stockId}`} target="_blank" rel="noreferrer">{cell.getValue()}</a>
         },
         {
           header: 'ที่อยู่ของสต๊อก',

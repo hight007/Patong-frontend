@@ -120,6 +120,20 @@ const Sidebar = () => {
               <p>แจ้งเตือนสต๊อก</p>
             </a>
           </li>
+          <li className="nav-item">
+            <a
+              href
+              onClick={() => navigate("/Report/StockDetail")}
+              className={
+                location.pathname === "/Report/StockDetail"
+                  ? "nav-link active"
+                  : "nav-link"
+              }
+            >
+              <i className="far fa-circle nav-icon" />
+              <p>รายละเอียดสต๊อก</p>
+            </a>
+          </li>
         </ul>
       </li>
     );

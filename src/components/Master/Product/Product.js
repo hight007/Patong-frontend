@@ -315,8 +315,8 @@ export default function Product() {
     })
   }
   const setProductsByActive = (data, active) => {
-    // setproducts(data.filter(item => item.isActive === active))
-    setproducts(data)
+    setproducts(data.filter(item => item.isActive === active))
+    // setproducts(data)
   }
 
   //sample Image

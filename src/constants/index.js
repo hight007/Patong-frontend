@@ -46,8 +46,10 @@ export const apiName = {
   stocks : {
     findByStockName: "stocks/findByStockName",
     findByProductId: "stocks/findByProductId",
+    findAllByProductId : "stocks/findAllByProductId",
     stock: "stocks/stock",
     StocksTracking: "stocks/StocksTracking",
+    reprint : "stocks/reprint",
   },
   report : {
     stockByProduct: 'report/stockByProduct',

@@ -23,10 +23,13 @@ import Home from "./components/Main/Home";
 import Receive from './components/Stock/Receive';
 import Issues from './components/Stock/Issues';
 import Move from './components/Stock/Move';
+import Reprint from './components/Stock/Reprint';
 
 // Report
 import ReportStock from './components/Report/Stock';
 import StockQtyAlert from './components/Report/StockQtyAlert';
+import StockDetail from './components/Report/StockDetail';
+import StockTracking from "./components/Report/StockTracking/StockTracking";
 
 // Master
 import Users from './components/Master/User';
@@ -35,6 +38,7 @@ import PrintProduct from './components/Master/Product/PrintProduct';
 import Area from './components/Master/Area';
 import PrintArea from './components/Master/Area/PrintArea';
 import Icons from './components/Master/Icons';
+
 
 const showElement = (element) => {
   const isLogined = localStorage.getItem(key.isLogined);
@@ -64,11 +68,13 @@ function App() {
         <Route path="/Stock/Receive" element={<RequireAuth><Receive /></RequireAuth>} />
         <Route path="/Stock/Issues" element={<RequireAuth><Issues /></RequireAuth>} />
         <Route path="/Stock/Move" element={<RequireAuth><Move /></RequireAuth>} />
+        <Route path="/Stock/RePrintStock/:stockId" element={<RequireAuth><Reprint /></RequireAuth>} />
 
         {/* Report */}
         <Route path="/Report/Stock" element={<RequireAuth><ReportStock /></RequireAuth>} />
         <Route path="/Report/StockQtyAlert" element={<RequireAuth><StockQtyAlert /></RequireAuth>} />
-
+        <Route path="/Report/StockDetail" element={<RequireAuth><StockDetail /></RequireAuth>} />
+        <Route path="/Report/StockTracking/:stockId" element={<RequireAuth><StockTracking /></RequireAuth>} />
 
         {/* master */}
         <Route path="/Master/Users" element={<RequireAuth userLevel={["admin", "power"]}><Users /></RequireAuth>} />

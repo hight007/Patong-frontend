@@ -18,7 +18,7 @@ export default function PrintArea() {
   const [listArea, setlistArea] = useState([])
   // const [dimensions, setDimensions] = React.useState({ width: 100, height: 30 });
   const [printWidth, setprintWidth] = useState(60)
-  const [printHeight, setprintHeight] = useState(40)
+  const [printHeight, setprintHeight] = useState(30)
 
   const params = useParams();
   const componentRef = useRef(null);
@@ -65,18 +65,23 @@ export default function PrintArea() {
                     <label >ยาว (mm)</label>
                     <input type="number" value={printHeight} onChange={(e) => setprintHeight(e.target.value)} required className="form-control" placeholder="กรอกชื่อพื้นที่" />
                   </div>
-                  <ReactToPrint
-                    trigger={() => <button className="btn btn-warning">สั่งพิมพ์ใบพื้นที่</button>}
-                    content={() => componentRef.current}
-                    pageStyle={`@page {
+                  <div>
+                    <ReactToPrint
+                      trigger={() => <button className="btn btn-warning">สั่งพิมพ์ใบพื้นที่</button>}
+                      content={() => componentRef.current}
+                      pageStyle={`@page {
                                   size: ${printWidth}mm ${printHeight}mm !important;
                                   margin: 0;
                               }`}
-                  />
-                  <hr></hr>
-                  <ComponentToPrint
-                    listArea={listArea}
-                    ref={componentRef} />
+                    />
+                  </div>
+
+                  <div>
+                    <ComponentToPrint
+                      listArea={listArea}
+                      ref={componentRef} />
+                  </div>
+
                 </div>
                 <div className="card-footer">
 
@@ -100,7 +105,7 @@ class ComponentToPrint extends Component {
       if (data) {
         return data.map((item, index) => (
           <>
-            <div className="col-md-12 row" style={{ margin: 10 }}>
+            <div className="col-md-12 row" style={{ margin: 5 }}>
               <div className="col-md-2">
                 <QRCode
                   size={128}
@@ -108,9 +113,9 @@ class ComponentToPrint extends Component {
                 />
               </div>
               <div className="col-md-10 row">
-                <h3 className="col-md-12">Area : {item.area}</h3>
-                <h3 className="col-md-12">Zone : {item.zone}</h3>
-                <h5 className="col-md-12">Description : {item.description}</h5>
+                <h5 className="col-md-12">Area : {item.area}</h5>
+                <h5 className="col-md-12">Zone : {item.zone}</h5>
+                <h6 className="col-md-12">{item.description}</h6>
               </div>
 
             </div>

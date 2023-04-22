@@ -65,7 +65,7 @@ export default function StockQtyAlert() {
   const doSetIsOrdered = async (productId, productName , isOrdered) => {
     Swal.fire({
       title: 'โปรดยืนยัน',
-      text: `สั่งสินค้าไปแล้ว ต้องการ${isOrdered === 0 ? 'ปิด' : 'เปิด'}แจ้งเตือน ${productName} ?`,
+      text: `สั่งสินค้าไปแล้ว ต้องการ${isOrdered === 0 ? 'เปิด' : 'ปิด'}แจ้งเตือน ${productName} ?`,
       icon: 'question',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -198,7 +198,7 @@ export default function StockQtyAlert() {
         <>
           <button onClick={() => {
             doSetIsOrdered(row.original.productId, row.original.productName, cell.getValue() === 0 ?  0 : 1)
-          }} className={cell.getValue() === 0 ? 'btn btn-primary' : 'btn btn-danger'}>{cell.getValue() === 0 ? <FontAwesomeIcon icon={iconsModule.faStore} /> : <FontAwesomeIcon icon={iconsModule.faStoreSlash} />}</button>
+          }} className={cell.getValue() === 0 ? 'btn btn-danger' : 'btn btn-success'}>{cell.getValue() === 0 ? <FontAwesomeIcon icon={iconsModule.faBellSlash} /> : <FontAwesomeIcon icon={iconsModule.faBell} />}</button>
         </>
       )
     },
