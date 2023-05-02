@@ -130,7 +130,9 @@ export default function PrintProduct() {
                   <hr></hr>
                   <ComponentToPrint
                     dataToPrint={dataToPrint}
-                    ref={componentRef} />
+                    ref={componentRef}
+                    printWidth={printWidth} />
+
                 </div>
                 <div className="card-footer">
 
@@ -151,13 +153,14 @@ class ComponentToPrint extends Component {
 
     const renderContent = () => {
       const data = this.props.dataToPrint
+      const printWidth = this.props.printWidth
       const secretKey = localStorage.getItem(key.secretKey)
       if (data) {
         return data.map((item, index) => (
           <>
             <div className="page-break" />
             <div className="col-md-12 row" style={{ margin: 10 }}>
-              <div className="col-md-12">
+              <div className="col-md-12" style={{ marginLeft: `${printWidth/2}mm` }}>
                 <QRCode
                   size={64}
                   value={CryptoJS.AES.encrypt(item.serialNumber, secretKey).toString()}
@@ -171,7 +174,7 @@ class ComponentToPrint extends Component {
                 <h8 className="col-md-12">ราคา : <CurrencyFormat value={item.default_price} displayType={'text'} thousandSeparator={true} suffix={' บาท'} /></h8>
               </div>
             </div>
-            
+
           </>
         )
         )
