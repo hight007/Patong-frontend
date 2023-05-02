@@ -14,6 +14,7 @@ import Select from 'react-select';
 import { useParams } from "react-router-dom";
 import QRCode from "react-qr-code";
 import ReactToPrint from 'react-to-print';
+import CurrencyFormat from "react-currency-format";
 // import CryptoJS from 'crypto-js';
 
 export default function Reprint() {
@@ -25,7 +26,7 @@ export default function Reprint() {
   const [stockData, setstockData] = useState([])
 
   const [printWidth, setprintWidth] = useState(60)
-  const [printHeight, setprintHeight] = useState(30)
+  const [printHeight, setprintHeight] = useState(40)
 
   useEffect(() => {
     doGetStockData()
@@ -115,25 +116,23 @@ class ComponentToPrint extends Component {
       if (data) {
         return data.map((item, index) => (
           <>
+            <div className="page-break" />
             <div className="col-md-12 row" style={{ margin: 10 }}>
-              <div className="col-md-1">
+              <div className="col-md-12">
                 <QRCode
                   size={64}
                   value={item.qrCode}
                 />
-                <label style={{ fontSize: 0.1 }} className="col-md-12">
-                  {/* {CryptoJS.AES.encrypt(item.serialNumber, secretKey).toString()} */}
-                </label>
               </div>
-              <div className="col-md-11 row">
-                <h5 className="col-md-12">เลขสินค้า : {item.stockName} </h5>
+              <div className="col-md-12 row">
+                <h8 className="col-md-12">เลขสินค้า : {item.stockName} </h8>
                 <h8 className="col-md-12">ชื่อสินค้า : {item.tbProduct.productName}</h8>
                 <h8 className="col-md-12">สเปค : {item.tbProduct.spec}</h8>
                 <h8 className="col-md-12">วันที่ : {moment().format('DD/MM/YYYY')}</h8>
-
+                <h8 className="col-md-12">ราคา : <CurrencyFormat value={item.tbProduct.default_price} displayType={'text'} thousandSeparator={true} suffix={' บาท'} /></h8>
               </div>
             </div>
-            <div className="page-break" />
+            
           </>
         )
         )

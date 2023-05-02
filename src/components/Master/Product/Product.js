@@ -10,6 +10,7 @@ import moment from "moment";
 import _ from "lodash";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as iconsModule from '@fortawesome/free-solid-svg-icons'
+import CurrencyFormat from 'react-currency-format';
 
 export default function Product() {
   const [isLoad, setisLoad] = useState(false)
@@ -31,6 +32,7 @@ export default function Product() {
   const [description, setdescription] = useState('')
   const [alertQuantity, setalertQuantity] = useState(0)
   const [default_total_quantity, setdefault_total_quantity] = useState(1)
+  const [default_price, setdefault_price] = useState(0)
   const [sample_image, setsample_image] = useState(null)
 
   useEffect(() => {
@@ -139,6 +141,7 @@ export default function Product() {
     setdescription(productResult.description)
     setalertQuantity(productResult.alertQuantity)
     setdefault_total_quantity(productResult.default_total_quantity)
+    setdefault_price(productResult.default_price ?? 0)
     setsample_image(null)
   }
 
@@ -180,6 +183,7 @@ export default function Product() {
     setdescription('')
     setalertQuantity(0)
     setdefault_total_quantity(1)
+    setdefault_price(0)
     setsample_image(null)
   }
 
@@ -212,7 +216,7 @@ export default function Product() {
       if (result.isConfirmed) {
         try {
           setisLoad(true)
-          const result = await httpClient.post(apiName.products.product, { productName, productType, spec, detail, description, alertQuantity, default_total_quantity, createdBy: localStorage.getItem(key.user_id) ?? 1 })
+          const result = await httpClient.post(apiName.products.product, { productName, productType, spec, detail, description, alertQuantity, default_total_quantity, default_price, createdBy: localStorage.getItem(key.user_id) ?? 1 })
           doPatchSampleImage(result.data.result.productId)
           setisLoad(false)
           if (result.data.api_result === OK) {
@@ -251,7 +255,7 @@ export default function Product() {
       if (result.isConfirmed) {
         try {
           setisLoad(true)
-          const result = await httpClient.patch(apiName.products.product, { productId, productName, productType, spec, detail, description, alertQuantity, default_total_quantity, updatedBy: localStorage.getItem(key.user_id) ?? 1 })
+          const result = await httpClient.patch(apiName.products.product, { productId, productName, productType, spec, detail, description, alertQuantity, default_total_quantity, default_price, updatedBy: localStorage.getItem(key.user_id) ?? 1 })
           doPatchSampleImage(productId)
           setisLoad(false)
           if (result.data.api_result == OK) {
@@ -415,6 +419,15 @@ export default function Product() {
                 <div className="form-group col-sm-12">
                   <label >จำนวนสินค้าต่อเลขสต๊อก</label>
                   <input value={default_total_quantity} type="number" onChange={(e) => setdefault_total_quantity(e.target.value)} className="form-control" />
+                </div>
+                <div className="form-group col-sm-12">
+                  <label >ราคาสินค้า</label>
+                  <CurrencyFormat value={default_price} className="form-control" onValueChange={(values) => {
+                    const { formattedValue, value } = values;
+                    setdefault_price(value)
+                  }
+                  }  thousandSeparator={true} suffix={' บาท'} />
+                  {/* <input value={default_price} type="number" onChange={(e) => setdefault_price(e.target.value)} className="form-control" /> */}
                 </div>
                 <div className="form-group col-sm-12">
                   <label >รูปภาพตัวอย่างสินค้า</label>

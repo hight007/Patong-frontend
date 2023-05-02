@@ -18,7 +18,7 @@ export default function PrintArea() {
   const [listArea, setlistArea] = useState([])
   // const [dimensions, setDimensions] = React.useState({ width: 100, height: 30 });
   const [printWidth, setprintWidth] = useState(60)
-  const [printHeight, setprintHeight] = useState(30)
+  const [printHeight, setprintHeight] = useState(40)
 
   const params = useParams();
   const componentRef = useRef(null);
@@ -115,9 +115,9 @@ class ComponentToPrint extends Component {
               <div className="col-md-10 row">
                 <h5 className="col-md-12">Area : {item.area}</h5>
                 <h5 className="col-md-12">Zone : {item.zone}</h5>
-                <h6 className="col-md-12">{item.description}</h6>
+                
               </div>
-
+              <h6 className="col-md-12">{item.description}</h6>
             </div>
             <div className="page-break" />
           </>

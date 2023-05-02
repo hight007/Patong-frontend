@@ -12,6 +12,7 @@ import * as iconsModule from '@fortawesome/free-solid-svg-icons'
 import _ from 'lodash';
 import { useParams } from "react-router-dom";
 import CryptoJS from 'crypto-js';
+import CurrencyFormat from 'react-currency-format';
 
 export default function PrintProduct() {
   const [isLoad, setisLoad] = useState(false)
@@ -20,7 +21,7 @@ export default function PrintProduct() {
   const [quantity, setquantity] = useState(0)
   // const [dimensions, setDimensions] = React.useState({ width: 100, height: 30 });
   const [printWidth, setprintWidth] = useState(60)
-  const [printHeight, setprintHeight] = useState(30)
+  const [printHeight, setprintHeight] = useState(40)
 
   const params = useParams();
   const componentRef = useRef(null);
@@ -43,7 +44,8 @@ export default function PrintProduct() {
           detail: product.detail,
           description: product.description,
           serialNumber: [product.productId, product.runningSN + index + 1, product.default_total_quantity].join('|'),
-          generateBy: localStorage.getItem(key.user_id) ?? 1
+          generateBy: localStorage.getItem(key.user_id) ?? 1,
+          default_price: product.default_price
         })
       }
       setdataToPrint(result)
@@ -153,25 +155,23 @@ class ComponentToPrint extends Component {
       if (data) {
         return data.map((item, index) => (
           <>
+            <div className="page-break" />
             <div className="col-md-12 row" style={{ margin: 10 }}>
-              <div className="col-md-1">
+              <div className="col-md-12">
                 <QRCode
                   size={64}
                   value={CryptoJS.AES.encrypt(item.serialNumber, secretKey).toString()}
                 />
-                <label style={{ fontSize: 0.1 }} className="col-md-12">
-                  {/* {CryptoJS.AES.encrypt(item.serialNumber, secretKey).toString()} */}
-                </label>
               </div>
               <div className="col-md-11 row">
-                <h5 className="col-md-12">เลขสินค้า : {item.serialNumber} </h5>
+                <h8 className="col-md-12">เลขสินค้า : {item.serialNumber} </h8>
                 <h8 className="col-md-12">ชื่อสินค้า : {item.productName}</h8>
                 <h8 className="col-md-12">สเปค : {item.spec}</h8>
                 <h8 className="col-md-12">วันที่ : {moment().format('DD/MM/YYYY')}</h8>
-
+                <h8 className="col-md-12">ราคา : <CurrencyFormat value={item.default_price} displayType={'text'} thousandSeparator={true} suffix={' บาท'} /></h8>
               </div>
             </div>
-            <div className="page-break" />
+            
           </>
         )
         )
