@@ -224,6 +224,10 @@ export default function StockQtyAlert() {
       accessorKey: 'alertQuantity', //simple accessorKey pointing to flat data
     },
     {
+      header: 'สเปค',
+      accessorKey: 'spec', //simple accessorKey pointing to flat data
+    },
+    {
       header: 'รายละเอียด',
       accessorKey: 'detail', //simple accessorKey pointing to flat data
     },
@@ -237,7 +241,7 @@ export default function StockQtyAlert() {
 
   return (
     <div className="content-wrapper resizeable">
-      <ContentHeader header="รานงานสต๊อก" />
+      <ContentHeader header="รายงานสต๊อก" />
       <section className="content ">
         <div className="container-fluid">
           <LoadingScreen isLoad={isLoad} />

@@ -106,18 +106,19 @@ class ComponentToPrint extends Component {
         return data.map((item, index) => (
           <>
             <div className="col-md-12 row" style={{ margin: 5 }}>
-              <div className="col-md-2">
+              <div className="col-md-12">
                 <QRCode
-                  size={128}
+                  size={100}
                   value={JSON.stringify({ area: item.area, area_id: item.area_id })}
                 />
               </div>
-              <div className="col-md-10 row">
-                <h5 className="col-md-12">Area : {item.area}</h5>
-                <h5 className="col-md-12">Zone : {item.zone}</h5>
-                
+              <div className="col-md-10 " style={{marginTop : 10}}>
+                <h5 >Area : {item.area}</h5>
+                <h5 >Zone : {item.zone}</h5>
+                <h6 >{item.description}</h6>
+                {JSON.stringify({ area: item.area, area_id: item.area_id })}
               </div>
-              <h6 className="col-md-12">{item.description}</h6>
+              
             </div>
             <div className="page-break" />
           </>

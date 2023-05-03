@@ -30,14 +30,17 @@ export default function Receive() {
   }
   const doRecieveStock = async () => {
     try {
-      const area_id = await findAreaId(area)
+      // const area_id = await findAreaId(area)
+      const area_qr = JSON.parse(area)
+      const {area_id} = area_qr
+      const area_name = area_qr.area
       const stockName = await decryptQrCode(qrCode)
 
       if (area_id == null) {
         Swal.fire({
           icon: 'error',
           title: 'ล้มเหลว',
-          text: `ไม่เจอพื้นที่ ${area} ในระบบ`
+          text: `ไม่เจอพื้นที่ ${area_name} ในระบบ`,
         }).then(() => resetInput())
       } else {
 
@@ -51,7 +54,7 @@ export default function Receive() {
         const productResult = await httpClient.get(apiName.products.product + `One/productId=${productId}`)
 
         //Set product isOrdered to 0
-        await httpClient.patch(apiName.products.product, { productId, isOrdered : 0 })
+        await httpClient.patch(apiName.products.product, { productId, isOrdered: 0 })
 
         //do stock recieved
         setisLoad(true)
@@ -62,6 +65,7 @@ export default function Receive() {
           Swal.fire({
             icon: 'success',
             title: `รับ Stock ${stockName} สำเร็จ`,
+            timer: 1000,
             text: `ชนิดสินค้า : ${productResult.data.result.productType} , ชื่อสินค้า : ${productResult.data.result.productName} , สเปค : ${productResult.data.result.spec}`
           }).then(() => resetInput())
         } else {
@@ -89,7 +93,7 @@ export default function Receive() {
       Swal.fire({
         icon: 'error',
         title: 'ล้มเหลว',
-        text: `รับ qrCode ${qrCode} ล้มเหลว`
+        text: `รับ qrCode ${qrCode} ล้มเหลว`,
       }).then(() => resetInput())
       console.log(error);
     } finally {

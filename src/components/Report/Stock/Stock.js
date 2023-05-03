@@ -156,6 +156,10 @@ export default function Stock() {
       accessorKey: 'alertQuantity', //simple accessorKey pointing to flat data
     },
     {
+      header: 'สเปค',
+      accessorKey: 'spec', //simple accessorKey pointing to flat data
+    },
+    {
       header: 'รายละเอียด',
       accessorKey: 'detail', //simple accessorKey pointing to flat data
     },

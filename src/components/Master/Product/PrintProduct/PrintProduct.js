@@ -171,7 +171,7 @@ class ComponentToPrint extends Component {
                 <h8 className="col-md-12">ชื่อสินค้า : {item.productName}</h8>
                 <h8 className="col-md-12">สเปค : {item.spec}</h8>
                 <h8 className="col-md-12">วันที่ : {moment().format('DD/MM/YYYY')}</h8>
-                <h8 className="col-md-12">ราคา : <CurrencyFormat value={item.default_price} displayType={'text'} thousandSeparator={true} suffix={' บาท'} /></h8>
+                <h8 className="col-md-12">โค้ด : <CurrencyFormat value={item.default_price} displayType={'text'} thousandSeparator={true} suffix={''} /></h8>
               </div>
             </div>
 
