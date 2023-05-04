@@ -1,6 +1,6 @@
 {
   "name": "patong",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
