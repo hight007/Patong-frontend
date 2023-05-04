@@ -116,7 +116,6 @@ class ComponentToPrint extends Component {
                 <h5 >Area : {item.area}</h5>
                 <h5 >Zone : {item.zone}</h5>
                 <h6 >{item.description}</h6>
-                {JSON.stringify({ area: item.area, area_id: item.area_id })}
               </div>
               
             </div>
