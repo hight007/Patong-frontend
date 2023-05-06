@@ -23,8 +23,8 @@ export const NO = "NO";
 export const OK = "ok";
 export const NOK = "nok";
 
-export const apiUrl = "http://localhost:2008/api/patong/";
-// export const apiUrl = "https://asia-east1-patong-379114.cloudfunctions.net/Patong_backend/api/patong/";
+// export const apiUrl = "http://localhost:2008/api/patong/";
+export const apiUrl = "https://asia-east1-patong-379114.cloudfunctions.net/Patong_backend/api/patong/";
 
 export const apiName = {
   authen: {
