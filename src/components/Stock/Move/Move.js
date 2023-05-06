@@ -30,14 +30,17 @@ export default function Receive() {
   }
   const doMoveStock = async () => {
     try {
-      const area_id = await findAreaId(area)
+      const area_qr = JSON.parse(area)
+      const { area_id } = area_qr
+      // const area_id = await findAreaId(area)
+      const area_name = area_qr.area
       const stockName = await decryptQrCode(qrCode)
 
       if (area_id == null) {
         Swal.fire({
           icon: 'error',
           title: 'ล้มเหลว',
-          text: `ไม่เจอพื้นที่ ${area} ในระบบ`
+          text: `ไม่เจอพื้นที่ ${area_name} ในระบบ`
         }).then(() => resetInput())
       } else {
 
@@ -59,8 +62,8 @@ export default function Receive() {
             //do stock recieved
             const result = await httpClient.patch(apiName.stocks.stock, { stockId: findByStockName.data.result.stockId, status, area_id, updatedBy: localStorage.getItem(key.user_id) ?? 1 })
             if (result.data.api_result === OK) {
-              const stockId = result.data.result.stockId
-              await httpClient.post(apiName.stocks.StocksTracking, { stockId, area_id, quantity, status, createdBy: localStorage.getItem(key.user_id) ?? 1 })
+
+              await httpClient.post(apiName.stocks.StocksTracking, { stockId: findByStockName.data.result.stockId, area_id, quantity: findByStockName.data.result.quantity, status, createdBy: localStorage.getItem(key.user_id) ?? 1 })
               Swal.fire({
                 icon: 'success',
                 title: `ย้าย Stock ${stockName} สำเร็จ`,

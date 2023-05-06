@@ -24,12 +24,14 @@ import Receive from './components/Stock/Receive';
 import Issues from './components/Stock/Issues';
 import Move from './components/Stock/Move';
 import Reprint from './components/Stock/Reprint';
+import Return from './components/Stock/Return';
 
 // Report
 import ReportStock from './components/Report/Stock';
 import StockQtyAlert from './components/Report/StockQtyAlert';
 import StockDetail from './components/Report/StockDetail';
 import StockTracking from "./components/Report/StockTracking/StockTracking";
+import SummaryStockTracking from './components/Report/SummaryStockTracking';
 
 // Master
 import Users from './components/Master/User';
@@ -68,14 +70,17 @@ function App() {
         <Route path="/Stock/Receive" element={<RequireAuth><Receive /></RequireAuth>} />
         <Route path="/Stock/Issues" element={<RequireAuth><Issues /></RequireAuth>} />
         <Route path="/Stock/Move" element={<RequireAuth><Move /></RequireAuth>} />
+        <Route path="/Stock/Return" element={<RequireAuth><Return /></RequireAuth>} />
         <Route path="/Stock/RePrintStock/:stockId" element={<RequireAuth><Reprint /></RequireAuth>} />
 
         {/* Report */}
         <Route path="/Report/Stock" element={<RequireAuth><ReportStock /></RequireAuth>} />
         <Route path="/Report/StockQtyAlert" element={<RequireAuth><StockQtyAlert /></RequireAuth>} />
         <Route path="/Report/StockDetail" element={<RequireAuth><StockDetail /></RequireAuth>} />
+        <Route path="/Report/StockDetail/:productId" element={<RequireAuth><StockDetail /></RequireAuth>} />
         <Route path="/Report/StockTracking/:stockId" element={<RequireAuth><StockTracking /></RequireAuth>} />
-
+        <Route path="/Report/SummaryStockTracking/" element={<RequireAuth><SummaryStockTracking /></RequireAuth>} />
+        
         {/* master */}
         <Route path="/Master/Users" element={<RequireAuth userLevel={["admin", "power"]}><Users /></RequireAuth>} />
         <Route path="/Master/Products" element={<RequireAuth userLevel={["admin", "power"]}><Product /></RequireAuth>} />

@@ -123,7 +123,7 @@ export default function Issues() {
             //do stock recieved
             const result = await httpClient.patch(apiName.stocks.stock, { stockId: findByStockName.data.result.stockId, quantity, status, updatedBy: localStorage.getItem(key.user_id) ?? 1 })
             if (result.data.api_result === OK) {
-              await httpClient.post(apiName.stocks.StocksTracking, { stockId: findByStockName.data.result.stockId, area_id: findByStockName.data.result.area_id, quantity, status, createdBy: localStorage.getItem(key.user_id) ?? 1 })
+              await httpClient.post(apiName.stocks.StocksTracking, { stockId: findByStockName.data.result.stockId, area_id: findByStockName.data.result.area_id, quantity: issueQuantity, status: "issued", createdBy: localStorage.getItem(key.user_id) ?? 1 })
               doGetStockByProducts(findByStockName.data.result.productId)
               Swal.fire({
                 icon: 'success',

@@ -71,6 +71,20 @@ const Sidebar = () => {
               <p>ย้ายสต๊อก</p>
             </a>
           </li>
+          <li className="nav-item">
+            <a
+              href
+              onClick={() => navigate("/Stock/Return")}
+              className={
+                location.pathname === "/Stock/Return"
+                  ? "nav-link active"
+                  : "nav-link"
+              }
+            >
+              <i className="far fa-circle nav-icon" />
+              <p>คืนสต๊อก</p>
+            </a>
+          </li>
         </ul>
       </li>
     );
@@ -134,6 +148,21 @@ const Sidebar = () => {
               <p>รายละเอียดสต๊อก</p>
             </a>
           </li>
+          <li className="nav-item">
+            <a
+              href
+              onClick={() => navigate("/Report/SummaryStockTracking")}
+              className={
+                location.pathname === "/Report/SummaryStockTracking"
+                  ? "nav-link active"
+                  : "nav-link"
+              }
+            >
+              <i className="far fa-circle nav-icon" />
+              <p>สรุปกิจกรรมสต๊อก</p>
+            </a>
+          </li>
+          
         </ul>
       </li>
     );

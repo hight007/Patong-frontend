@@ -8,6 +8,7 @@ import MaterialReactTable from 'material-react-table';
 import moment from "moment";
 import _ from "lodash";
 import Select from 'react-select';
+import { useParams } from "react-router-dom";
 
 export default function StockDetail() {
   const [isLoad, setisLoad] = useState(false)
@@ -16,6 +17,10 @@ export default function StockDetail() {
   const [products, setproducts] = useState([])
   const [users, setusers] = useState([])
   const [stocksByProduct, setstocksByProduct] = useState([])
+
+  const [selectedItem, setselectedItem] = useState(null)
+
+  const params = useParams();
 
   useEffect(() => {
     doGetUsers()
@@ -29,6 +34,19 @@ export default function StockDetail() {
       const response = await httpClient.get(apiName.products.product)
       if (response.data.api_result === OK) {
         const dropDownResult = response.data.result.map((item) => ({ value: item, label: item.productName + '(' + item.description + ')' }))
+
+        //if have product name
+        const { productId } = params
+        if (productId) {
+          doGetStockByProducts(parseInt(productId))
+          //find productId
+          const productData = dropDownResult.filter(item => item.value.productId === parseInt(productId))
+          if (productData.length > 0) {
+            console.log(productData);
+            setselectedItem(productData)
+          }
+          //
+        }
         await setproducts(dropDownResult)
       }
     } catch (error) {
@@ -55,7 +73,7 @@ export default function StockDetail() {
     const _data_ = _.map(_data, 'stockId');
     window.open('/stock/RePrintStock/' + JSON.stringify(_data_), '_blank');
   }
-  const doPatchStockStatus = (stockId, stockName, status, statusName, area_id, quantity , productId) => {
+  const doPatchStockStatus = (stockId, stockName, status, statusName, area_id, quantity, productId) => {
     Swal.fire({
       title: 'โปรดยืนยัน',
       text: `ต้องการเปลี่ยนสถานะ ${stockName} เป็น "${statusName}"`,
@@ -133,7 +151,9 @@ export default function StockDetail() {
             isClearable={false}
             isSearchable={true}
             options={products}
+            defaultValue={selectedItem}
             onChange={(data) => {
+
               doGetStockByProducts(data.value.productId)
             }}
           />
@@ -144,7 +164,6 @@ export default function StockDetail() {
 
   }
   const renderStockByProduct = () => {
-    console.log(stocksByProduct);
     if (stocksByProduct.length > 0) {
       const columns = [
         {
