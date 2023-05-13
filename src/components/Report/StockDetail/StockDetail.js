@@ -33,7 +33,7 @@ export default function StockDetail() {
       setisLoad(true)
       const response = await httpClient.get(apiName.products.product)
       if (response.data.api_result === OK) {
-        const dropDownResult = response.data.result.map((item) => ({ value: item, label: item.productName + '(' + item.description + ')' }))
+        const dropDownResult = response.data.result.map((item) => ({ value: item, label: item.productName + '(' + item.description + ') {' + item.spec + '}' }))
 
         //if have product name
         const { productId } = params

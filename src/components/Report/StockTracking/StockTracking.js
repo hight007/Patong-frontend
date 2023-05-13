@@ -86,7 +86,7 @@ export default function StockTracking() {
           Cell: ({ cell, row }) => cell.getValue() ? cell.getValue().area : ''
         },
         {
-          header: 'จำนวนงานที่มี',
+          header: 'จำนวนงาน',
           accessorKey: 'quantity', //simple accessorKey pointing to flat data
         },
         {
