@@ -130,11 +130,14 @@ export default function StockDetail() {
   const findUser = (user) => {
     if (users.length > 0 && user != null) {
       const createdUser = _.find(users, { user_id: user })
-      return createdUser.username
+      if (createdUser.username) {
+        return createdUser.username
+      } else {
+        return ''
+      }
     } else {
       return ''
     }
-
   }
 
   //render

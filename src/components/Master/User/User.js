@@ -240,14 +240,17 @@ export default function User() {
     }
   }
 
-  const findUser = (createdBy) => {
-    if (users.length > 0) {
-      const createdUser = _.find(users, { user_id: createdBy })
-      return createdUser.username
+  const findUser = (user) => {
+    if (users.length > 0 && user != null) {
+      const createdUser = _.find(users, { user_id: user })
+      if (createdUser.username) {
+        return createdUser.username
+      } else {
+        return ''
+      }
     } else {
       return ''
     }
-
   }
 
   const updateUserLevel = async (user_id, username, new_user_level) => {

@@ -49,11 +49,14 @@ export default function Issues() {
   const findUser = (user) => {
     if (users.length > 0 && user != null) {
       const createdUser = _.find(users, { user_id: user })
-      return createdUser.username
+      if (createdUser.username) {
+        return createdUser.username
+      } else {
+        return ''
+      }
     } else {
       return ''
     }
-
   }
 
   //Action
@@ -123,7 +126,7 @@ export default function Issues() {
             //do stock recieved
             const result = await httpClient.patch(apiName.stocks.stock, { stockId: findByStockName.data.result.stockId, quantity, status, updatedBy: localStorage.getItem(key.user_id) ?? 1 })
             if (result.data.api_result === OK) {
-              await httpClient.post(apiName.stocks.StocksTracking, { stockId: findByStockName.data.result.stockId, area_id: findByStockName.data.result.area_id, quantity: issueQuantity, status: "issued", createdBy: localStorage.getItem(key.user_id) ?? 1 })
+              await httpClient.post(apiName.stocks.StocksTracking, { stockId: findByStockName.data.result.stockId, area_id: findByStockName.data.result.area_id, quantity: issueQuantity == 0 ? 1 : issueQuantity, status: "issued", createdBy: localStorage.getItem(key.user_id) ?? 1 })
               doGetStockByProducts(findByStockName.data.result.productId)
               Swal.fire({
                 icon: 'success',
