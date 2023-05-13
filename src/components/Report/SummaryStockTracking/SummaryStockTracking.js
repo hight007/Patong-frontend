@@ -34,14 +34,12 @@ export default function SummaryStockTracking() {
         if (response.data.api_result === OK) {
           const pivoted = {};
           for (const item of response.data.result) {
-            const { productId, productName, status, quantity } = item;
+            const { productId, spec, productName, status, quantity } = item;
             if (!pivoted[productName]) {
-              pivoted[productName] = { productId, productName };
+              pivoted[productName] = { productId, productName , spec };
             }
             pivoted[productName][status] = quantity;
           }
-
-          console.log(Object.values(pivoted));
           settableData(Object.values(pivoted))
         }
       }
@@ -88,6 +86,10 @@ export default function SummaryStockTracking() {
           header: 'ชนิดสินค้า',
           accessorKey: 'productName', //simple accessorKey pointing to flat data
           Cell: ({ cell, row }) => <a href={`/Report/StockDetail/${row.original.productId}`} target="_blank">{cell.getValue()}</a>
+        },
+        {
+          header: 'สเปค',
+          accessorKey: 'spec', //simple accessorKey pointing to flat data
         },
         {
           header: 'จำนวนที่รับ',
